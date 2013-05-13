@@ -15,19 +15,24 @@ Vagrant
 
 I create two different Vagrant instances, storing each of them in a separate directory underneath the "vagrant" directory. To bring up the "logstash_central" machine:
 
-  cd vagrant/logstash_central
-  vagrant up
-  
+```
+cd vagrant/logstash_central
+vagrant up
+```
+
 To bring up the "logstash_shipper" machine:
 
-  cd vagrant/logstash_shipper
-  vagrant up
-  
+```
+cd vagrant/logstash_shipper
+vagrant up
+```
+
 If you want to start from scratch, you can destroy the box entirely or just reload it:
 
-  cd vagrant/logstash_shipper
-  vagrant reload
-
+```
+cd vagrant/logstash_shipper
+vagrant reload
+```
 
 Shell Provisioning
 ==================
