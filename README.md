@@ -6,7 +6,7 @@ Repo storing work done walking through "The LogStash Book" by James Turnbull.
 Origins
 =======
 
-I deal with a ton of logs all day at work. Something that would make these less of a burden to handle, mangle, and extract useful information from would be handy. Stumbled upon discussion of LogStash rather by accident. 
+I deal with a ton of logs all day at work. Something that would make these less of a burden to handle, mangle, and extract useful information from would be handy. Stumbled upon discussion of LogStash and began stepping through Mr. Turnbull's book from start to finish. 
 
 Initially started following through the book and tearing my Macbook apart with trying to deploy things. Thought use of Vagrant would be a good idea, since could easily bring up and tear down VMs more easily than shove the dependencies onto my laptop. This also makes it easy to configure an analogous network topology as described in the text. The instructions presume Linux systems, so Vagrant and Ubuntu boxes worked out pretty well. Execute the commands exactly as seen in book, without having to translate them.
 
