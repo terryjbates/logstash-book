@@ -68,7 +68,7 @@ Vagrant.configure("2") do |config|
   #
   config.vm.define :central do |central_config|
     central_config.vm.box = "precise32"
-    central_config.vm : forwarded_port, guest: 9292, host: 9292
+    central_config.vm :forwarded_port, guest: 9292, host: 9292
     central_config.vm.network :private_network, ip: "10.0.0.2"
     
     central_config.vm.provision :puppet do |central|
@@ -78,16 +78,16 @@ Vagrant.configure("2") do |config|
     
   end
 ###############################################################################
-  config.vm.provision :shipper do |shipper_config|
-    shipper_config.vm.box = "precise32"
-    shipper_config.vm.network :private_network, ip: "10.0.0.3"
-    
-    shipper_config.vm.provision :puppet do |shipper|
-      shipper_config.manifests_path = "manifests"
-      shipper_config.manifest_file  = "shipper_config.pp"
-    end
-    
-  end
+  # config.vm.provision :shipper do |shipper_config|
+  #   shipper_config.vm.box = "precise32"
+  #   shipper_config.vm.network :private_network, ip: "10.0.0.3"
+  #   
+  #   shipper_config.vm.provision :puppet do |shipper|
+  #     shipper_config.manifests_path = "manifests"
+  #     shipper_config.manifest_file  = "shipper_config.pp"
+  #   end
+  #   
+  # end
 
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
