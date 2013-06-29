@@ -145,15 +145,15 @@ exec { "download_logstash":
 
 
 # Symlink to make it easier to refer to the logstash jar file 
-file { '/opt/logstash/logstash.jar':
+file { "/opt/logstash/logstash.jar":
    ensure => 'link',
    target => '/opt/logstash/logstash-1.1.9-monolithic.jar',
-   require => [File[$logstash_dirs], Exec[ "download_logstash" ] ],
+   require => [ File[$logstash_dirs], Exec[ "download_logstash" ] ],
 }
 
 
 # Bring in our logstash patterns
-file { '/etc/logstash/patterns/postfix':
+file { "/etc/logstash/patterns/postfix":
    source => '/vagrant/postfix',
    require => [ File[$logstash_dirs], Exec[ "download_logstash" ],],
 }
@@ -164,7 +164,7 @@ file { '/etc/logstash/patterns/postfix':
 exec { "create_logstash_log":
   command => "touch /var/log/logstash/shipper.log",
   creates => "/var/log/logstash/shipper.log",
-  require => [ File[$logstash_dirs], Service["logstash-agent"],]
+  require => [ File[$logstash_dirs],]
 }
 
 
@@ -193,6 +193,8 @@ file { "/etc/init.d/logstash-agent":
 service { "logstash-agent":
   enable => "true",
   ensure => "running",
-  require => File[ "/etc/init.d/logstash-agent" ],
+  require => [ Exec[ "create_logstash_log" ], File["/etc/logstash/shipper.conf"], 
+             File["/etc/init.d/logstash-agent"], Package[$added_packages], Exec["download_logstash"], 
+             File["/opt/logstash/logstash.jar"], File["/etc/logstash/patterns/postfix"],   ],
 }
 
