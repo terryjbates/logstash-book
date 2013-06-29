@@ -202,6 +202,9 @@ file { "/etc/redis/redis.conf":
 }
 
 
-
+# Set up our kernel parameter to overcommit
+exec { "overcommit_kernel_memory":
+    command => "sysctl vm.overcommit_memory=1",
+}
 
 
