@@ -10,7 +10,6 @@ java_bin=`which java`
 logstash_bin="${java_bin} -jar /opt/logstash/logstash.jar"
 logstash_conf="/etc/logstash/shipper.conf"
 logstash_log="/var/log/logstash/shipper.log"
-export HOME="/var/log/logstash"
 
 find_logstash_process () {
     PIDTEMP=`ps ux | grep logstash | grep java | awk '{ print $2 }'`
@@ -28,8 +27,7 @@ start () {
       echo "Log dir ${LOG_DIR} doesn't exist. Creating"
       mkdir $LOG_DIR
     fi
-    #nohup ${logstash_bin} agent -v -f ${logstash_conf} --log ${logstash_log} &
-    ${logstash_bin} agent -v -f ${logstash_conf} --log ${logstash_log} &
+    nohup ${logstash_bin} agent -v -f ${logstash_conf} --log ${logstash_log} &
 }
 
 stop () {
