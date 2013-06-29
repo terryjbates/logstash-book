@@ -120,11 +120,12 @@ file { "/etc/init.d/logstash-central":
 }
 
 
-# Run the logstash-central init script.
+# Run the logstash-central init script. But only after we have 
+# the services we rely on up and running.
 service { "logstash-central":
   enable => "true",
   ensure => "running",
-  require => File[ "/etc/init.d/logstash-central" ],
+  require => [ Service[ "redis-server" ], Service[ "elasticsearch" ]  ],
 }
 
 
