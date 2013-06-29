@@ -69,6 +69,9 @@ Vagrant.configure("2") do |config|
   config.vm.define :central do |central_config|
     central_config.vm.box = "precise32"
     central_config.vm :forwarded_port, guest: 9292, host: 9292
+    central_config.vm :forwarded_port, guest: 9200, host: 9200
+    central_config.vm :forwarded_port, guest: 5222, host: 5222
+    central_config.vm :forwarded_port, guest: 5223, host: 5223
     central_config.vm.network :private_network, ip: "10.0.0.2"
     
     central_config.vm.provision :puppet do |central|
