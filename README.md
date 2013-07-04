@@ -13,36 +13,35 @@ Initially was tearing my Macbook to shreds, trying to deploy ElasticSearch and o
 Vagrant
 =======
 
-I create two different Vagrant instances, storing each of them in a separate directory underneath the "vagrant" directory. To bring up the "logstash_central" machine:
+I use two different Vagrant VMs. The first being *central*, the system housing the LogStash program, the ElasticSearch and Redis servers as well. The *shipper* is the system shipping log data over to the *central* system. 
 
 ```
-cd vagrant/logstash_central
-vagrant up
+vagrant up central
 ```
 
 To bring up the "logstash_shipper" machine:
 
 ```
-cd vagrant/logstash_shipper
-vagrant up
+vagrant up shipper
 ```
 
 If you want to start from scratch, you can destroy the box entirely or just reload it:
 
 ```
-cd vagrant/logstash_shipper
-vagrant reload
+vagrant reload central
+vagrant reload shipper
 ```
 
-Shell Provisioning
+Puppet Provisioning
 ==================
 
-I have not learned enough about Puppet or Chef to use these to provision the boxes. I use plain old shell commands to do things like `apt-get` and get the machines into a working configuration. Since Vagrant supports use of NFS, I use the `data` directory in this repo to store the configuration files, then direct the shell provisioning scripts to copy the files stored there onto the running VM.  Inside of the shell provisioning script, we direct that `data` be mounted in the VMs as `/vagrant_data.` The shell provisioning scripts also do the work of starting up the daemons as well. 
+I initially did not learn enough about Puppet or Chef to use these to provision the boxes. I started out using plain old shell commands to do things like `apt-get` and get the machines into a working configuration. I was being silly and made a separate NFS mounted directory called `/vagrant_data`, forgetting that there already is an existing mount under `/vagrant.` For ease of use, I have stashed all the config files and packages used in provisioinng in the top-level directory.
+
+Since I have learned Puppet well enough to actually use it, I created a `manifests` directory and crafted separate .pp files for both `central` and `shipper.` Modifying `Vagrantfile` and mirroring the current set of systems should make it easy to drop in different hosts and then have them shoot data to `central.`
 
 
 Book Text
 =========
 
-I tried to follow the book as closely as possible, including the hostnames and IP addresses used in the text. Some modifications had to be made; for example, the IP address for the `logstash_central` machine has to be set to 10.0.0.2, rather than 10.0.0.1, since Vagrant reserves 10.0.0.1 for the host system itself. Am guessing the presumption was that this would be set up on hardware, or maybe that there was greater control over IP addressing with different VM software. 
+I tried to follow the book as closely as possible, including the hostnames and IP addresses used in the text. Some modifications had to be made; for example, the IP address for the `central` machine has to be set to 10.0.0.2, rather than 10.0.0.1, since Vagrant reserves 10.0.0.1 for the host system itself. Am guessing the presumption was that this would be set up on hardware, or maybe that there was greater control over IP addressing with different VM software. 
 
-The starting point of the initial commits of files ends with the "Filtering Events with LogStash" chapter.  I unfortunately did not track history as I was working on this. Going forward, the files should have commit messages reflecting what was changed and why.
