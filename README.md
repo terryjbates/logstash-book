@@ -40,6 +40,13 @@ I initially did not learn enough about Puppet or Chef to use these to provision 
 Since I have learned Puppet well enough to actually use it, I created a `manifests` directory and crafted separate .pp files for both `central` and `shipper.` Modifying `Vagrantfile` and mirroring the current set of systems should make it easy to drop in different hosts and then have them shoot data to `central.`
 
 
+Kibana
+========
+
+A thought of slapping in the entire Kibana tar.gz file came to mind, but that seemed silly and wasteful. The [Kibana install directions](http://three.kibana.org/intro.html) 
+are pretty straightforward, with the modifications made to a single line needed to get this up and going.
+
+
 Book Text
 =========
 
